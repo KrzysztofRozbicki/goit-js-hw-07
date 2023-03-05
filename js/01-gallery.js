@@ -18,11 +18,14 @@ for (const image of galleryItems) {
 
 galleryEl.addEventListener('click', event => {
   event.preventDefault();
-  const instance = basicLightbox.create(`<img src="${event.target.dataset.source}"/>`);
-  instance.show();
-  window.addEventListener('keydown', event => {
-    if (event.key === 'Escape') {
-      instance.close();
-    }
+  const instance = basicLightbox.create(`<img src="${event.target.dataset.source}"/>`, {
+    onShow: instance => {
+      window.addEventListener('keydown', event => {
+        if (event.key === 'Escape') {
+          instance.close();
+        }
+      });
+    },
   });
+  instance.show();
 });
